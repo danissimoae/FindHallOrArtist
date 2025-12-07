@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>МузПлатформа - Платформа для музыкантов и организаторов</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-music"></i>
+                <span>МузПлатформа</span>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="#home">Главная</a></li>
+                <li><a href="#features">Возможности</a></li>
+                <li><a href="#about">О платформе</a></li>
+                <li><a href="#" onclick="showLogin()">Войти</a></li>
+                <li><a href="#" onclick="showRegister()" class="btn-primary">Регистрация</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-overlay"></div>
+        <div class="container hero-content">
+            <h1 class="hero-title">Найдите идеального артиста для вашего мероприятия</h1>
+            <p class="hero-subtitle">Единая платформа для музыкантов и организаторов событий</p>
+            <div class="hero-buttons">
+                <button class="btn btn-large btn-primary" onclick="showRegister()">
+                    <i class="fas fa-user-plus"></i> Начать сейчас
+                </button>
+                <button class="btn btn-large btn-outline" onclick="location.href='artists.html'">
+                    <i class="fas fa-search"></i> Найти артиста
+                </button>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <i class="fas fa-users"></i>
+                    <h3>1000+</h3>
+                    <p>Артистов</p>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-calendar-check"></i>
+                    <h3>5000+</h3>
+                    <p>Мероприятий</p>
+                </div>
+                <div class="stat">
+                    <i class="fas fa-star"></i>
+                    <h3>4.8</h3>
+                    <p>Средний рейтинг</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features" id="features">
+        <div class="container">
+            <h2 class="section-title">Возможности платформы</h2>
+            <p class="section-subtitle">Все инструменты для успешного сотрудничества</p>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Умный поиск</h3>
+                    <p>Найдите артистов по жанру, цене, локации и другим критериям</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Простое бронирование</h3>
+                    <p>Отправляйте заявки и получайте ответы в один клик</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Встроенный чат</h3>
+                    <p>Общайтесь напрямую с артистами и организаторами</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Рейтинги и отзывы</h3>
+                    <p>Оценивайте работу и читайте отзывы других пользователей</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <h3>Календарь событий</h3>
+                    <p>Управляйте расписанием и избегайте двойных бронирований</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Безопасность</h3>
+                    <p>Защита данных и проверенные профили артистов</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works -->
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">Как это работает</h2>
+
+            <div class="tabs">
+                <button class="tab-btn active" onclick="showTab('artist')">Для артистов</button>
+                <button class="tab-btn" onclick="showTab('organizer')">Для организаторов</button>
+            </div>
+
+            <div class="tab-content active" id="artist-tab">
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Создайте профиль</h3>
+                        <p>Расскажите о себе, добавьте фото, аудио и видео</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Получайте заявки</h3>
+                        <p>Организаторы найдут вас и отправят предложения</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Подтвердите детали</h3>
+                        <p>Обсудите условия и согласуйте выступление</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>Выступайте</h3>
+                        <p>Получайте отзывы и повышайте рейтинг</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab-content" id="organizer-tab">
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h3>Зарегистрируйтесь</h3>
+                        <p>Создайте профиль организатора или площадки</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h3>Найдите артиста</h3>
+                        <p>Используйте фильтры для поиска подходящих исполнителей</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h3>Отправьте заявку</h3>
+                        <p>Укажите детали мероприятия и предложите условия</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h3>Проведите событие</h3>
+                        <p>Оставьте отзыв после успешного мероприятия</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2>О платформе МузПлатформа</h2>
+                    <p>Мы создали единое пространство, где музыканты и организаторы мероприятий могут легко найти друг друга.</p>
+                    <p>Наша миссия — сделать процесс организации музыкальных событий простым, прозрачным и эффективным.</p>
+                    <ul class="check-list">
+                        <li><i class="fas fa-check"></i> Проверенные артисты</li>
+                        <li><i class="fas fa-check"></i> Безопасные сделки</li>
+                        <li><i class="fas fa-check"></i> Быстрое бронирование</li>
+                        <li><i class="fas fa-check"></i> Поддержка 24/7</li>
+                    </ul>
+                </div>
+                <div class="about-image">
+                    <img src="/static/images/about.jpg" alt="О платформе">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <h2>Готовы начать?</h2>
+            <p>Присоединяйтесь к тысячам артистов и организаторов уже сегодня</p>
+            <button class="btn btn-large btn-white" onclick="showRegister()">
+                <i class="fas fa-rocket"></i> Зарегистрироваться бесплатно
+            </button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3><i class="fas fa-music"></i> МузПлатформа</h3>
+                    <p>Единая платформа для музыкантов и организаторов событий</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-vk"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Платформа</h4>
+                    <ul>
+                        <li><a href="#">Как это работает</a></li>
+                        <li><a href="#">Тарифы</a></li>
+                        <li><a href="#">FAQ</a></li>
+                        <li><a href="#">Блог</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Поддержка</h4>
+                    <ul>
+                        <li><a href="#">Центр помощи</a></li>
+                        <li><a href="#">Связаться с нами</a></li>
+                        <li><a href="/docs">API документация</a></li>
+                        <li><a href="#">Правила</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Контакты</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +7 (495) 333-33-33</li>
+                        <li><i class="fas fa-envelope"></i> info@muzplatforma.ru</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Москва, Россия</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 МузПлатформа. Все права защищены.</p>
+                <p>Разработано студентами группы МО-426б</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal Login -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Вход в систему</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <div id="loginError" class="error-message"></div>
+                <button type="submit" class="btn btn-primary btn-block">Войти</button>
+                <p class="text-center" style="margin-top: 15px;">
+                    Нет аккаунта? <a href="#" onclick="closeModal('loginModal'); showRegister()">Зарегистрироваться</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Register -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Регистрация</h2>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>Тип аккаунта</label>
+                    <select id="registerRole" required>
+                        <option value="artist">Артист</option>
+                        <option value="organizer">Организатор</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input type="tel" id="registerPhone" placeholder="+7 (999) 123-45-67">
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="registerPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Подтверждение пароля</label>
+                    <input type="password" id="registerPasswordConfirm" required>
+                </div>
+                <div id="registerError" class="error-message"></div>
+                <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
+                <p class="text-center" style="margin-top: 15px;">
+                    Уже есть аккаунт? <a href="#" onclick="closeModal('registerModal'); showLogin()">Войти</a>
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+</body>
+</html>

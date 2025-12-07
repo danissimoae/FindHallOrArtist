@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Профиль артиста - МузПлатформа</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-music"></i>
+                <a href="/static/index.html" style="text-decoration: none; color: inherit;">МузПлатформа</a>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/static/index.html">Главная</a></li>
+                <li><a href="/static/dashboard-artist.html" class="active">Мой профиль</a></li>
+                <li><a href="/static/messages.html">Сообщения <span class="badge" id="messagesBadge">0</span></a></li>
+                <li><a href="#" onclick="logout()" class="btn-primary">Выйти</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="user-profile">
+                <div class="user-avatar">
+                    <i class="fas fa-user-music"></i>
+                </div>
+                <h3 id="userName">Загрузка...</h3>
+                <p id="userEmail"></p>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="#" class="nav-item active" onclick="showSection('profile')">
+                    <i class="fas fa-user"></i> Профиль
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('bookings')">
+                    <i class="fas fa-calendar"></i> Заявки
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('reviews')">
+                    <i class="fas fa-star"></i> Отзывы
+                </a>
+                <a href="#" class="nav-item" onclick="showSection('stats')">
+                    <i class="fas fa-chart-line"></i> Статистика
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <!-- Profile Section -->
+            <section id="profileSection" class="dashboard-section">
+                <div class="section-header">
+                    <h2>Мой профиль</h2>
+                    <button class="btn btn-primary" onclick="toggleEditMode()">
+                        <i class="fas fa-edit"></i> Редактировать
+                    </button>
+                </div>
+
+                <div id="profileView" class="profile-view">
+                    <div class="profile-card">
+                        <div class="profile-image">
+                            <i class="fas fa-user-music"></i>
+                        </div>
+                        <div class="profile-info">
+                            <h2 id="stageName">Загрузка...</h2>
+                            <div class="profile-rating">
+                                <i class="fas fa-star"></i>
+                                <span id="rating">0.0</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-item">
+                            <label>Жанры</label>
+                            <p id="genresView">-</p>
+                        </div>
+                        <div class="info-item">
+                            <label>Цена выступления</label>
+                            <p id="priceView">-</p>
+                        </div>
+                        <div class="info-item full-width">
+                            <label>Биография</label>
+                            <p id="bioView">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="profileEdit" class="profile-edit" style="display: none;">
+                    <form id="profileForm" onsubmit="saveProfile(event)">
+                        <div class="form-group">
+                            <label>Сценическое имя</label>
+                            <input type="text" id="stageNameEdit" required>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Минимальная цена (₽)</label>
+                                <input type="number" id="priceMinEdit" min="0">
+                            </div>
+                            <div class="form-group">
+                                <label>Максимальная цена (₽)</label>
+                                <input type="number" id="priceMaxEdit" min="0">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Жанры (через запятую)</label>
+                            <input type="text" id="genresEdit" placeholder="rock, pop, jazz">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Биография</label>
+                            <textarea id="bioEdit" rows="5"></textarea>
+                        </div>
+
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-save"></i> Сохранить
+                            </button>
+                            <button type="button" class="btn btn-outline" onclick="toggleEditMode()">
+                                Отмена
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <!-- Bookings Section -->
+            <section id="bookingsSection" class="dashboard-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Заявки на выступления</h2>
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" onclick="filterBookings('all')">Все</button>
+                        <button class="filter-tab" onclick="filterBookings('pending')">Ожидают</button>
+                        <button class="filter-tab" onclick="filterBookings('confirmed')">Подтверждены</button>
+                        <button class="filter-tab" onclick="filterBookings('declined')">Отклонены</button>
+                    </div>
+                </div>
+
+                <div id="bookingsList" class="bookings-list">
+                    <div class="loading-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Загрузка заявок...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reviews Section -->
+            <section id="reviewsSection" class="dashboard-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Отзывы обо мне</h2>
+                </div>
+
+                <div id="reviewsList" class="reviews-list">
+                    <div class="loading-spinner">
+                        <i class="fas fa-spinner fa-spin"></i>
+                        <p>Загрузка отзывов...</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Stats Section -->
+            <section id="statsSection" class="dashboard-section" style="display: none;">
+                <div class="section-header">
+                    <h2>Статистика</h2>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--primary-color);">
+                            <i class="fas fa-calendar-check"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalBookings">0</h3>
+                            <p>Всего заявок</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--success-color);">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="confirmedBookings">0</h3>
+                            <p>Подтверждено</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--warning-color);">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="avgRating">0.0</h3>
+                            <p>Средний рейтинг</p>
+                        </div>
+                    </div>
+
+                    <div class="stat-card">
+                        <div class="stat-icon" style="background: var(--secondary-color);">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3 id="totalReviews">0</h3>
+                            <p>Отзывов</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/dashboard-artist.js"></script>
+</body>
+</html>

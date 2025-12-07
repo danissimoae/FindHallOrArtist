@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Поиск артистов - МузПлатформа</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/artists.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-brand">
+                <i class="fas fa-music"></i>
+                <a href="/static/index.html" style="text-decoration: none; color: inherit;">МузПлатформа</a>
+            </div>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="/static/index.html">Главная</a></li>
+                <li><a href="/static/artists.html" class="active">Артисты</a></li>
+                <li><a href="#" onclick="showLogin()">Войти</a></li>
+                <li><a href="#" onclick="showRegister()" class="btn-primary">Регистрация</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section class="search-section">
+        <div class="container">
+            <h1>Найдите идеального артиста</h1>
+            <p class="subtitle">Более 1000 проверенных музыкантов на любой вкус и бюджет</p>
+
+            <div class="search-filters">
+                <div class="filter-group">
+                    <label><i class="fas fa-search"></i> Поиск</label>
+                    <input type="text" id="searchQuery" placeholder="Название, стиль, исполнитель...">
+                </div>
+
+                <div class="filter-group">
+                    <label><i class="fas fa-music"></i> Жанр</label>
+                    <select id="genreFilter">
+                        <option value="">Все жанры</option>
+                        <option value="rock">Рок</option>
+                        <option value="pop">Поп</option>
+                        <option value="jazz">Джаз</option>
+                        <option value="electronic">Электроника</option>
+                        <option value="classical">Классика</option>
+                        <option value="hip-hop">Хип-хоп</option>
+                        <option value="indie">Инди</option>
+                        <option value="folk">Фолк</option>
+                        <option value="blues">Блюз</option>
+                        <option value="metal">Метал</option>
+                    </select>
+                </div>
+
+                <div class="filter-group">
+                    <label><i class="fas fa-ruble-sign"></i> Цена от</label>
+                    <input type="number" id="priceMin" placeholder="0" min="0">
+                </div>
+
+                <div class="filter-group">
+                    <label><i class="fas fa-ruble-sign"></i> Цена до</label>
+                    <input type="number" id="priceMax" placeholder="500000" min="0">
+                </div>
+
+                <button class="btn btn-primary" onclick="performSearch()">
+                    <i class="fas fa-search"></i> Найти
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section class="results-section">
+        <div class="container">
+            <div class="results-header">
+                <h2>Результаты поиска</h2>
+                <div class="view-toggle">
+                    <button class="view-btn active" data-view="grid" onclick="toggleView('grid')">
+                        <i class="fas fa-th"></i>
+                    </button>
+                    <button class="view-btn" data-view="list" onclick="toggleView('list')">
+                        <i class="fas fa-list"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div id="loadingSpinner" class="loading-spinner">
+                <i class="fas fa-spinner fa-spin"></i>
+                <p>Загрузка артистов...</p>
+            </div>
+
+            <div id="artistsGrid" class="artists-grid">
+                <!-- Artists will be loaded here -->
+            </div>
+
+            <div id="noResults" class="no-results" style="display: none;">
+                <i class="fas fa-search"></i>
+                <h3>Артисты не найдены</h3>
+                <p>Попробуйте изменить параметры поиска</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Artist Detail Modal -->
+    <div class="modal" id="artistModal">
+        <div class="modal-content modal-large">
+            <span class="close" onclick="closeModal('artistModal')">&times;</span>
+            <div id="artistDetails">
+                <!-- Artist details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div class="modal" id="loginModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('loginModal')">&times;</span>
+            <h2>Вход в систему</h2>
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="loginEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="loginPassword" required>
+                </div>
+                <div id="loginError" class="error-message"></div>
+                <button type="submit" class="btn btn-primary btn-block">Войти</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register Modal -->
+    <div class="modal" id="registerModal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('registerModal')">&times;</span>
+            <h2>Регистрация</h2>
+            <form id="registerForm" onsubmit="handleRegister(event)">
+                <div class="form-group">
+                    <label>Тип аккаунта</label>
+                    <select id="registerRole" required>
+                        <option value="organizer">Организатор</option>
+                        <option value="artist">Артист</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="registerEmail" required>
+                </div>
+                <div class="form-group">
+                    <label>Телефон</label>
+                    <input type="tel" id="registerPhone" placeholder="+7 (999) 123-45-67">
+                </div>
+                <div class="form-group">
+                    <label>Пароль</label>
+                    <input type="password" id="registerPassword" required minlength="6">
+                </div>
+                <div class="form-group">
+                    <label>Подтверждение пароля</label>
+                    <input type="password" id="registerPasswordConfirm" required>
+                </div>
+                <div id="registerError" class="error-message"></div>
+                <button type="submit" class="btn btn-primary btn-block">Зарегистрироваться</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2025 МузПлатформа. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/static/js/main.js"></script>
+    <script src="/static/js/artists.js"></script>
+</body>
+</html>
